@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>🧸 Gửi em bé</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(180deg, #fff0f5, #e8f4ff);
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* Gấu */
+    .bear {
+      font-size: 120px;
+      cursor: pointer;
+      animation: walk 4s linear infinite;
+      position: absolute;
+      left: -150px;
+      bottom: 80px;
+    }
+
+    @keyframes walk {
+      0% { left: -150px; }
+      100% { left: calc(100% + 150px); }
+    }
+
+    /* Hoa + thư */
+    .gift {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      background: white;
+      padding: 24px 28px;
+      border-radius: 18px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      text-align: center;
+      animation: pop 0.4s ease-out;
+      z-index: 10;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.7); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .flower {
+      font-size: 60px;
+      margin-bottom: 10px;
+    }
+
+    .letter {
+      font-size: 15px;
+      color: #444;
+      line-height: 1.5;
+      max-width: 240px;
+    }
+
+    .hint {
+      position: absolute;
+      bottom: 20px;
+      font-size: 14px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bear" id="bear" onclick="giveGift()">🧸</div>
+
+  <div class="gift" id="gift">
+    <div class="flower">🌷</div>
+    <div class="letter">
+      Gửi béee,<br><br>
+      Tớ iuuu béee nhiều lắm đó 🤍<br>
+      Mong là khi đọc được mấy dòng này,<br>
+      béee sẽ mỉm cười một chút nè 🌷<br><br>
+      — tớ
+    </div>
+  </div>
+
+  <div class="hint">chạm vào chú gấu đang đi 🐻</div>
+
+  <script>
+    function giveGift() {
+      const bear = document.getElementById('bear');
+      const gift = document.getElementById('gift');
+
+      bear.style.animation = 'none';
+      bear.style.left = '50%';
+      bear.style.transform = 'translateX(-50%)';
+
+      setTimeout(() => {
+        gift.style.display = 'flex';
+      }, 400);
+    }
+  </script>
+
+</body>
+</html>
