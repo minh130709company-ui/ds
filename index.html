@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> ❤️</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0c0c2e, #1a1a3e, #2d0a3d);
+            color: white;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px #ff0080, 0 0 20px #ff0080;
+            background: linear-gradient(to right, #ff9cd7, #ff0080);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.9; }
+            50% { opacity: 1; }
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            color: #e6d0ff;
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stage {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            border-radius: 15px;
+            min-width: 150px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stage:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 0, 128, 0.3);
+        }
+
+        .stage i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .stage.active {
+            background: rgba(255, 0, 128, 0.2);
+            border-color: #ff0080;
+        }
+
+        .controls {
+            margin-top: 2rem;
+        }
+
+        button {
+            background: linear-gradient(to right, #ff0080, #ff66b3);
+            border: none;
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(255, 0, 128, 0.4);
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 0, 128, 0.6);
+        }
+
+        /* Hiệu ứng mưa tim */
+        .heart {
+            position: absolute;
+            font-size: 1.5rem;
+            color: #ff0080;
+            opacity: 0.8;
+            z-index: 1;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Hiệu ứng bong bóng chữ */
+        .bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            z-index: 2;
+            pointer-events: none;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+        }
+
+        /* Hiệu ứng tia sáng */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: #ffeb3b;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px #ffeb3b;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Emoji bay */
+        .emoji {
+            position: absolute;
+            font-size: 2rem;
+            z-index: 1;
+            pointer-events: none;
+            animation: fly linear forwards;
+        }
+
+        @keyframes fly {
+            to {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Nội dung chính -->
+    <div class="container">
+        <h1><i class="fas fa-heart"></i> Hiệu Ứng Tình Yêu <i class="fas fa-heart"></i></h1>
+        <p>Từ những trái tim rơi ngập tràn, đến những khoảnh khắc lấp lánh...<br>Mọi cảm xúc đều xứng đáng được ghi lại bằng những hiệu ứng diệu kỳ nhất.</p>
+        
+        <div class="timeline">
+            <div class="stage active" id="stage1">
+                <i class="fas fa-cloud-rain"></i>
+                <h3>Mưa Tim</h3>
+                <p>Khởi đầu</p>
+            </div>
+            <div class="stage" id="stage2">
+                <i class="fas fa-sparkles"></i>
+                <h3>Lấp Lánh</h3>
+                <p>Rực rỡ</p>
+            </div>
+            <div class="stage" id="stage3">
+                <i class="fas fa-bubbles"></i>
+                <h3>Bong Bóng</h3>
+                <p>Ngọt ngào</p>
+            </div>
+            <div class="stage" id="stage4">
+                <i class="fas fa-fire"></i>
+                <h3>Bùng Nổ</h3>
+                <p>Cao trào</p>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button id="btnHearts"><i class="fas fa-heart"></i> Mưa Tim</button>
+            <button id="btnBubbles"><i class="fas fa-comment-dots"></i> Bong Bóng Tình Yêu</button>
+            <button id="btnSparkles"><i class="fas fa-star"></i> Tia Sáng</button>
+            <button id="btnEmoji"><i class="fas fa-smile-wink"></i> Emoji Bay</button>
+            <button id="btnMix"><i class="fas fa-magic"></i> Tất Cả Hiệu Ứng</button>
+            <button id="btnClear"><i class="fas fa-ban"></i> Dọn Dẹp</button>
+        </div>
+        
+        <p style="margin-top: 3rem; font-size: 1rem; color: #aaa;">
+            <i class="fas fa-lightbulb"></i> Nhấn các nút để kích hoạt hiệu ứng. Hiệu ứng sẽ tự động dừng sau 1 phút.
+        </p>
+    </div>
+
+    <!-- Khu vực hiệu ứng sẽ xuất hiện ở đây -->
+    
+    <script>
+        // Các biến toàn cục
+        let effectsInterval;
+        let activeEffects = [];
+        let currentStage = 1;
+        const stages = document.querySelectorAll('.stage');
+        
+        // Danh sách từ ngữ tình yêu cho bong bóng
+        const loveWords = ["❤️", "LOVE", "YÊU", "THƯƠNG", "NHỚ", "HAPPY", "CƯỜI", "💖", "💕", "💘", "😍", "💑", "WOW", "HẾC DỖI", "GIẬN HỜN", "THỂ HIỆN"];
+        
+        // Emojis cho hiệu ứng bay
+        const emojis = ["❤️", "💖", "💕", "💘", "😍", "🥰", "😘", "💑", "💏", "🌹", "🎁", "💌", "✨", "🌟", "💫"];
+        
+        // Hàm tạo trái tim rơi
+        function createHearts(count = 50) {
+            clearEffects();
+            const interval = 300; // ms
+            
+            effectsInterval = setInterval(() => {
+                for(let i = 0; i < 5; i++) {
+                    createHeart();
+                }
+            }, interval);
+            
+            // Tự dừng sau 1 phút
+            setTimeout(stopEffects, 60000);
+            updateStage(1);
+        }
+        
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            
+            // Kích thước ngẫu nhiên
+            const size = Math.random() * 30 + 20;
+            heart.style.fontSize = `${size}px`;
+            
+            // Vị trí ngẫu nhiên trên màn hình
+            const startX = Math.random() * window.innerWidth;
+            heart.style.left = `${startX}px`;
+            heart.style.top = `-50px`;
+            
+            // Màu sắc ngẫu nhiên
+            const colors = ['#ff0080', '#ff66b3', '#ff99cc', '#ff3366', '#ff0066'];
+            heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Tốc độ rơi ngẫu nhiên
+            const duration = Math.random() * 5 + 5;
+            heart.style.animationDuration = `${duration}s`;
+            
+            // Độ mờ ngẫu nhiên
+            heart.style.opacity = Math.random() * 0.7 + 0.3;
+            
+            document.body.appendChild(heart);
+            activeEffects.push(heart);
+            
+            // Xóa trái tim khi animation kết thúc
+            setTimeout(() => {
+                if (heart.parentNode) {
+                    heart.parentNode.removeChild(heart);
+                }
+            }, duration * 1000);
+        }
+        
+        // Hàm tạo bong bóng chữ tình yêu
+        function createBubbles(count = 20) {
+            clearEffects();
+            
+            effectsInterval = setInterval(() => {
+                createBubble();
+            }, 500);
+            
+            setTimeout(stopEffects, 60000);
+            updateStage(3);
+        }
+        
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+            
+            // Kích thước ngẫu nhiên
+            const size = Math.random() * 80 + 50;
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            
+            // Vị trí ngẫu nhiên
+            const startX = Math.random() * (window.innerWidth - size);
+            const startY = window.innerHeight + 50;
+            bubble.style.left = `${startX}px`;
+            bubble.style.top = `${startY}px`;
+            
+            // Nội dung ngẫu nhiên
+            const word = loveWords[Math.floor(Math.random() * loveWords.length)];
+            bubble.textContent = word;
+            
+            // Màu sắc và font size
+            const colors = ['rgba(255, 0, 128, 0.4)', 'rgba(102, 0, 204, 0.4)', 'rgba(255, 102, 179, 0.4)'];
+            bubble.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            bubble.style.fontSize = size < 80 ? '1rem' : '1.5rem';
+            
+            // Animation
+            const duration = Math.random() * 10 + 10;
+            bubble.style.animationDuration = `${duration}s`;
+            
+            document.body.appendChild(bubble);
+            activeEffects.push(bubble);
+            
+            // Xóa sau khi animation kết thúc
+            setTimeout(() => {
+                if (bubble.parentNode) {
+                    bubble.parentNode.removeChild(bubble);
+                }
+            }, duration * 1000);
+        }
+        
+        // Hàm tạo tia sáng lấp lánh
+        function createSparkles(count = 100) {
+            clearEffects();
+            
+            for(let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    createSparkle();
+                }, i * 50);
+            }
+            
+            setTimeout(stopEffects, 60000);
+            updateStage(2);
+        }
+        
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+            
+            // Vị trí ngẫu nhiên
+            sparkle.style.left = `${Math.random() * window.innerWidth}px`;
+            sparkle.style.top = `${Math.random() * window.innerHeight}px`;
+            
+            // Animation
+            sparkle.style.animation = `float ${Math.random() * 2 + 1}s infinite`;
+            
+            document.body.appendChild(sparkle);
+            activeEffects.push(sparkle);
+        }
+        
+        // Hàm tạo emoji bay
+        function createEmojis(count = 30) {
+            clearEffects();
+            
+            effectsInterval = setInterval(() => {
+                for(let i = 0; i < 3; i++) {
+                    createEmoji();
+                }
+            }, 800);
+            
+            setTimeout(stopEffects, 60000);
+            updateStage(4);
+        }
+        
+        function createEmoji() {
+            const emoji = document.createElement('div');
+            emoji.classList.add('emoji');
+            
+            // Chọn emoji ngẫu nhiên
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            // Kích thước
+            const size = Math.random() * 40 + 30;
+            emoji.style.fontSize = `${size}px`;
+            
+            // Vị trí bắt đầu (dưới cùng)
+            const startX = Math.random() * window.innerWidth;
+            emoji.style.left = `${startX}px`;
+            emoji.style.top = `${window.innerHeight + 50}px`;
+            
+            // Màu sắc và hiệu ứng
+            const colors = ['#ff0080', '#ffeb3b', '#4caf50', '#2196f3', '#9c27b0'];
+            emoji.style.color = colors[Math.floor(Math.random() * colors.length)];
+            emoji.style.textShadow = `0 0 10px ${emoji.style.color}`;
+            
+            // Animation
+            const duration = Math.random() * 8 + 6;
+            emoji.style.animationDuration = `${duration}s`;
+            
+            document.body.appendChild(emoji);
+            activeEffects.push(emoji);
+            
+            // Xóa sau khi animation kết thúc
+            setTimeout(() => {
+                if (emoji.parentNode) {
+                    emoji.parentNode.removeChild(emoji);
+                }
+            }, duration * 1000);
+        }
+        
+        // Hàm kết hợp tất cả hiệu ứng
+        function createAllEffects() {
+            clearEffects();
+            
+            // Mưa tim
+            const heartInterval = setInterval(() => {
+                for(let i = 0; i < 3; i++) createHeart();
+            }, 400);
+            
+            // Bong bóng
+            const bubbleInterval = setInterval(() => {
+                createBubble();
+            }, 1000);
+            
+            // Tia sáng
+            for(let i = 0; i < 50; i++) {
+                setTimeout(() => createSparkle(), i * 100);
+            }
+            
+            // Emoji
+            const emojiInterval = setInterval(() => {
+                createEmoji();
+            }, 1500);
+            
+            // Lưu các interval để dọn dẹp sau
+            activeEffects.push({type: 'interval', ref: heartInterval});
+            activeEffects.push({type: 'interval', ref: bubbleInterval});
+            activeEffects.push({type: 'interval', ref: emojiInterval});
+            
+            // Dừng tất cả sau 1 phút
+            setTimeout(() => {
+                clearInterval(heartInterval);
+                clearInterval(bubbleInterval);
+                clearInterval(emojiInterval);
+            }, 60000);
+            
+            updateStage(2);
+        }
+        
+        // Hàm dừng và dọn dẹp hiệu ứng
+        function stopEffects() {
+            clearInterval(effectsInterval);
+            
+            // Xóa tất cả interval
+            activeEffects.forEach(effect => {
+                if (effect.type === 'interval') {
+                    clearInterval(effect.ref);
+                }
+            });
+        }
+        
+        function clearEffects() {
+            stopEffects();
+            
+            // Xóa tất cả phần tử hiệu ứng
+            document.querySelectorAll('.heart, .bubble, .sparkle, .emoji').forEach(el => {
+                if (el.parentNode) {
+                    el.parentNode.removeChild(el);
+                }
+            });
+            
+            activeEffects = [];
+        }
+        
+        // Hàm cập nhật stage hiển thị
+        function updateStage(stageNum) {
+            stages.forEach(stage => stage.classList.remove('active'));
+            document.getElementById(`stage${stageNum}`).classList.add('active');
+            currentStage = stageNum;
+        }
+        
+        // Gán sự kiện cho các nút
+        document.getElementById('btnHearts').addEventListener('click', () => createHearts());
+        document.getElementById('btnBubbles').addEventListener('click', () => createBubbles());
+        document.getElementById('btnSparkles').addEventListener('click', () => createSparkles());
+        document.getElementById('btnEmoji').addEventListener('click', () => createEmojis());
+        document.getElementById('btnMix').addEventListener('click', () => createAllEffects());
+        document.getElementById('btnClear').addEventListener('click', () => {
+            clearEffects();
+            stages.forEach(stage => stage.classList.remove('active'));
+        });
+        
+        // Tự động bắt đầu với mưa tim khi trang được tải
+        window.addEventListener('load', () => {
+            setTimeout(() => createHearts(), 500);
+        });
+        
+        // Responsive: điều chỉnh khi thay đổi kích thước cửa sổ
+        window.addEventListener('resize', () => {
+            if (activeEffects.length > 0) {
+                clearEffects();
+                if (currentStage === 1) createHearts();
+                else if (currentStage === 2) createSparkles();
+                else if (currentStage === 3) createBubbles();
+                else if (currentStage === 4) createEmojis();
+            }
+        });
+    </script>
+</body>
+</html>
